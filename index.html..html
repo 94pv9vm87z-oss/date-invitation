@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff0f4">
+<title>Одно важное приглашение 💌</title>
+<style>
+:root{--pink:#e85d83;--deep:#9e3155;--soft:#fff0f4;--ink:#402632}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Georgia,"Times New Roman",serif;color:var(--ink);
+background:radial-gradient(circle at 10% 15%,#ffe0e9 0 2px,transparent 3px),radial-gradient(circle at 90% 30%,#ffd4e1 0 3px,transparent 4px),linear-gradient(145deg,#fff8fa,#ffeaf0);
+display:flex;align-items:center;justify-content:center;padding:22px;overflow-x:hidden}
+.card{width:min(100%,520px);background:#ffffffdf;border:1px solid #f7cbd8;border-radius:28px;padding:clamp(24px,6vw,42px);text-align:center;box-shadow:0 18px 60px #a83b5b1c;position:relative}
+.heart{font-size:36px;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{transform:scale(1.16)}}
+.kicker{font:600 11px/1.4 Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin:12px 0}
+h1{font-size:clamp(30px,8vw,43px);line-height:1.12;margin:10px 0 16px;color:#78324a}
+p{font-size:17px;line-height:1.6;margin:10px 0 22px}
+button,.choice{font:600 15px Arial,sans-serif;border:0;border-radius:999px;padding:15px 23px;cursor:pointer;transition:.2s}
+button:focus-visible,.choice:focus-visible{outline:3px solid #f2a8bd;outline-offset:3px}
+.primary{background:var(--pink);color:white;box-shadow:0 8px 20px #e85d8340}
+.primary:hover{background:#d94b73;transform:translateY(-2px)}
+.secondary{background:#fff0f4;color:#a24a67;border:1px solid #f5c8d6}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px;min-height:54px}
+.small{font:12px Arial,sans-serif;color:#a77a89;margin-top:25px}
+.hidden{display:none!important}
+.step{animation:appear .45s ease}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.options{display:grid;grid-template-columns:1fr;gap:10px;text-align:left;margin:20px 0}
+.choice{display:block;width:100%;border:1px solid #f1c4d2;background:#fff8fa;color:#67384a;border-radius:16px;text-align:left;padding:15px}
+.choice.selected{border:2px solid var(--pink);background:#fff0f4}
+.choice span{display:block;font:13px Arial,sans-serif;color:#98717e;margin-top:5px;font-weight:400}
+label{display:block;text-align:left;font:13px Arial,sans-serif;color:#87576a;margin:14px 0 7px}
+input,select{width:100%;padding:13px;border:1px solid #edc4d1;border-radius:12px;background:#fffafb;font:16px Arial,sans-serif;color:var(--ink)}
+.footer-heart{color:#e85d83;letter-spacing:8px;margin-top:22px}
+#noBtn{position:relative}
+.note{background:#fff4f7;border-radius:16px;padding:14px;font:14px/1.5 Arial,sans-serif;color:#87576a;margin-top:16px}
+</style>
+</head>
+<body>
+<main class="card">
+  <section id="intro" class="step">
+    <div class="heart">💌</div>
+    <div class="kicker">для самого особенного человека</div>
+    <h1>У меня к тебе<br>одно предложение…</h1>
+    <p>Я хочу украсть тебя ненадолго из всех забот, побыть рядом и устроить нам маленькое свидание.</p>
+    <p><b>Пойдёшь со мной на свидание?</b></p>
+    <div class="actions">
+      <button class="primary" onclick="showStep('plan')">ДА, конечно ❤️</button>
+      <button class="secondary" id="noBtn" onclick="nope()">Нет 🙈</button>
+    </div>
+    <div class="small">P.S. Правильный ответ я уже подозреваю 😉</div>
+  </section>
+
+  <section id="plan" class="step hidden">
+    <div class="heart">🌷</div>
+    <div class="kicker">тогда решено</div>
+    <h1>Выбирай наше свидание</h1>
+    <p>Хочу, чтобы этот вечер был именно таким, как тебе нравится.</p>
+    <div class="options">
+      <button class="choice selected" data-plan="Уютный ужин 🍓" onclick="pick(this)">🍓 Уютный ужин<span>Вкусная еда, разговоры и только мы</span></button>
+      <button class="choice" data-plan="Прогулка и красивые места 🌙" onclick="pick(this)">🌙 Прогулка и красивые места<span>Свежий воздух, держаться за руки и никуда не спешить</span></button>
+      <button class="choice" data-plan="Кино и сладости 🍿" onclick="pick(this)">🍿 Кино и сладости<span>Фильм, попкорн и уютный вечер</span></button>
+      <button class="choice" data-plan="Сюрприз от меня 🎁" onclick="pick(this)">🎁 Сюрприз от меня<span>Просто доверься мне ❤️</span></button>
+    </div>
+    <label for="date">Когда тебе удобно?</label>
+    <input id="date" type="date">
+    <label for="time">Во сколько?</label>
+    <select id="time"><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select>
+    <div class="actions"><button class="primary" onclick="confirmDate()">Выбрала! ❤️</button></div>
+  </section>
+
+  <section id="done" class="step hidden">
+    <div class="heart">❤️</div>
+    <div class="kicker">официально договорились</div>
+    <h1>Это будет наш вечер!</h1>
+    <p id="summary"></p>
+    <div class="note">А самое главное — мне не важно, куда мы пойдём. Главное, что рядом будешь ты.</div>
+    <p style="margin-top:22px">Уже жду нашей встречи. Целую! 💋</p>
+    <div class="footer-heart">♥ ♥ ♥</div>
+    <div class="actions"><button class="primary" onclick="copyInvite()">Скопировать ответ 💌</button></div>
+    <div class="small" id="copied"></div>
+  </section>
+</main>
+<script>
+let chosen='Уютный ужин 🍓';
+function showStep(id){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
+function nope(){const b=document.getElementById('noBtn');b.textContent=['Может, всё-таки да? 🥺','Подумай ещё раз 🙃','Я приготовил сюрприз! 🎁'][Math.floor(Math.random()*3)];b.style.transform=`translate(${Math.random()*36-18}px,${Math.random()*18-9}px)`;}
+function pick(el){document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');chosen=el.dataset.plan}
+function confirmDate(){
+ const d=document.getElementById('date').value;
+ if(!d){document.getElementById('date').focus();document.getElementById('date').reportValidity();return}
+ const [y,m,day]=d.split('-');const pretty=`${day}.${m}.${y}`;
+ document.getElementById('summary').textContent=`Наш план: ${chosen}. Дата: ${pretty}, время: ${document.getElementById('time').value}. Я забираю тебя в мир приятных впечатлений!`;
+ showStep('done');
+}
+async function copyInvite(){
+ const text=document.getElementById('summary').textContent+' ❤️ Да, я иду с тобой на свидание!';
+ try{await navigator.clipboard.writeText(text);document.getElementById('copied').textContent='Ответ скопирован — отправь его мне ❤️'}
+ catch(e){document.getElementById('copied').textContent=text}
+}
+const today=new Date();const local=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);document.getElementById('date').min=local;
+</script>
+</body>
+</html>
